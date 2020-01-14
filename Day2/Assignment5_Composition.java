@@ -3,7 +3,8 @@ public class Main
 	public static void main(String[] args) 
 	{ 
 		Restraunt R = new Restraunt();
-		System.out.println("Works");
+		System.out.println("Restraunt opened");
+        R.restrauntOpen();
 	} 
 } 
 class Person{
@@ -16,22 +17,28 @@ class Waiter extends Person{
         System.out.println("Serving food");
     }
     public void takingOrder(){
-        System.out.println("Serving food");
+        System.out.println("Taking Order");
     }
 }
 class Cook extends Person{
     public void cookingFood(){
-        System.out.println("Serving food");
+        System.out.println("Cooking ordered food");
     }
 }
 class Cashier extends Person{
     public void billingCustomer(){
-        System.out.println("Serving food");
+        System.out.println("Billing customer");
     }
 }
 class Restraunt{
-    private Waiter w[] = new Waiter[10];
-    private Cook c[] = new Cook[3];
+    private Waiter w = new Waiter();
+    private Cook c = new Cook();
     private Cashier cs = new Cashier();
     
+    public void restrauntOpen(){
+        w.takingOrder();
+        c.cookingFood();
+        w.servingFood();
+        cs.billingCustomer();
+    }
 }

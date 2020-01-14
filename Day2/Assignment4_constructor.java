@@ -1,30 +1,30 @@
-class Test
+class TestConstructor
 {
-  public Test() 
+  public TestConstructor() 
   {
     System.out.println("Public");
   }      
-  protected Test(int x) 
+  protected TestConstructor(int x) 
   {
     System.out.println("protected");
   }
 }
  
-public class Demo extends Test 
+public class Testing extends TestConstructor 
 {       
-  private Demo(int x) 
+  private Testing(int x) 
   {
     super(x);
-    System.out.println("private");
+    System.out.println("private to protected");
   } 
-  private Demo(String x)
+  private Testing(String x)
   {
       super();
       System.out.println("private to public");
   }
   public static void main(String args[])
   {
-     Demo d1 = new Demo(1000);
-     Demo d2 = new Demo("ABC");
+     Testing t1 = new Testing(1000);
+     Testing t2 = new Testing("ABC");
   }
 }
