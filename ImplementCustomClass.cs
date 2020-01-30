@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CustomCollectionsArrayList
+namespace CustomCollections
 {
     class ImplementCustomClass
     {
@@ -12,61 +12,44 @@ namespace CustomCollectionsArrayList
 
         {
 
-            CustomCollectionArrayListClass<int> cus = new CustomCollectionArrayListClass<int>();
-
-
+            CustomCollectionClass<int> CustomColl = new CustomCollectionClass<int>();
 
             //Added the elements in the ArrayList
-
-            cus.add(12);
-
-            cus.add(32);
-
-            cus.add(83);
-
-            cus.add(49);
-
-            cus.add(65);
-
-            cus.add(99);
-
-            cus.add(0);
+            CustomColl.add(74);
+            CustomColl.add(759);
+            CustomColl.add(47);
+            CustomColl.add(569);
+            CustomColl.add(548);
+            CustomColl.add(441);
+            CustomColl.add(54);
+            CustomColl.insert(41,2);
 
 
+            //Display the elements
+            CustomColl.show();
 
-            //Printing the elements
-
-            cus.show();
-
-
-
-            //Deleting a particular element and showing the remannings
-
-            cus.delete(32);
-
-            cus.show();
+            //Deleting
+            CustomColl.delete(32);
+            CustomColl.show();
 
 
-
-            Console.WriteLine(cus.capacity());
-
+            //Displaying Capacity and length(size)
+            Console.WriteLine(CustomColl.capacity());
+            Console.WriteLine(CustomColl.length());
             Console.WriteLine("\n");
 
-
             // Implementing Sort
-            cus.sort();
-
-            cus.show();
+            CustomColl.sort();
+            CustomColl.show();
 
             //Checking Contains method
-            Console.WriteLine(cus.contains(22));
+            Console.WriteLine(CustomColl.contains(54));
 
-            //getting object at a given position
-            Console.WriteLine(cus.get(5));
+            //Getting object at a given position
+            Console.WriteLine(CustomColl.get(5));
 
-            //finding an element
-            Console.WriteLine(cus.find(99));
-
+            //Finding an element
+            Console.WriteLine(CustomColl.find(47));
             Console.ReadLine();
 
         }

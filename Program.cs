@@ -1,190 +1,146 @@
 ﻿using System;
 
-namespace CustomCollectionsArrayList
+namespace CustomCollections
 
 {
 
-    class CustomCollectionArrayListClass<Object>
-
-    {
-
-        //All the Data Members
-
-        public Object[] elmentData;
-
-        private int Tsize;
-
-        private int count;
-
-
-
-        //The Constructor for Initialisation
-
-        public CustomCollectionArrayListClass()
+    class CustomCollectionClass<Object>
 
         {
 
-            Tsize = 4;
+            #region "Declaration"
+            //Declaration of data members
+            public Object[] DataArray;
 
-            count = 0;
+            private int StepSize;
+            private int Counter;
 
-        }
+            #endregion
 
-
-
-        //Initialization of the array
-
-        private void init()
-
-        {
-
-            elmentData = new Object[Tsize];
-
-        }
-
-
-
-        //The Insert Methord
-
-        public void add(Object a)
-
-        {
-
-            if (count == 0)
+            #region "Constructor Declaration"
+            //Constructor Declaration
+            public CustomCollectionClass ()
 
             {
 
-                init();
+                StepSize = 4;
+
+                Counter = 0;
 
             }
+            #endregion
 
-            if (count == Tsize)
-
-            {
-
-                Tsize *= 2;
-
-                Array.Resize<Object>(ref elmentData, Tsize);
-
+            #region "Initialization"
+            //Initializing the dataArray
+            private void init () {
+                DataArray = new Object[StepSize];
             }
+            #endregion
 
-            elmentData[count] = a;
-
-            count++;
-
-        }
-
-
-
-        //Getting tthe object at the given Index
-
-        public Object get(int a)
-
-        {
-
-            return elmentData[a];
-
-        }
-
-
-
-        //Finding the Capacity of the ArrayList
-
-        public int capacity()
-
-        {
-
-            if (elmentData == null)
+            #region "Insertion of two types"
+            //The Insert Methord
+            public void add (Object Obj)
 
             {
 
-                return 0;
-
-            }
-
-            else
-
-                return Tsize;
-
-        }
-
-
-
-        //Finding that the given object uis contained in the ArrayList
-
-        public bool contains(Object a)
-
-        {
-
-            for (int i = 0; i < count; i++)
-
-            {
-
-                if (a.Equals(elmentData[i]))
+                if (Counter == 0)
 
                 {
 
-                    return true;
+                    init ();
 
                 }
 
-            }
-
-            return false;
-
-        }
-
-
-
-        //Finding the position of the given element
-
-        public int find(Object a)
-
-        {
-
-            for (int i = 0; i < count; i++)
-
-            {
-
-                if (a.Equals(elmentData[i]))
+                if (Counter == StepSize)
 
                 {
 
-                    return (i + 1);
+                    StepSize *= 2;
+
+                    Array.Resize<Object> (ref DataArray, StepSize);
 
                 }
 
+                DataArray[Counter] = Obj;
+
+                Counter++;
+
             }
 
-            return -1;
-
-        }
-
-
-
-        //sorting the given arraylist
-
-        public void sort()
-
-        {
-
-            for (int i = 0; i < count; i++)
+            public void insert (Object Obj, int position)
 
             {
-
-                for (int j = 1; j < (count - i); j++)
+                if (Counter == 0)
 
                 {
 
-                    if (int.Parse(elmentData[j - 1].ToString()) > int.Parse(elmentData[j].ToString()))
+                    init ();
+
+                }
+
+                if (Counter == StepSize)
+
+                {
+
+                    StepSize *= 2;
+
+                    Array.Resize<Object> (ref DataArray, StepSize);
+
+                }
+
+                for (int i = Counter; i > position; i--)
+
+                {
+
+                    DataArray[i] = DataArray[i - 1];
+
+                }
+
+                DataArray[position] = Obj;
+
+            }
+
+            #endregion
+
+            #region "Deletion of given Object"
+            //Deleting the given Object
+            public void delete (Object a)
+
+            {
+
+                if (Counter == 0)
+
+                {
+
+                    throw new Exception ("The ArrayList is Empty");
+
+                } else
+
+                {
+
+                    int indexAt = find (a) - 1;
+
+                    if (indexAt == -1)
 
                     {
 
-                        Object temp = elmentData[j - 1];
+                        throw new Exception ("The Element is not present in the ArrayList");
 
-                        elmentData[j - 1] = elmentData[j];
+                    } else
 
-                        elmentData[j] = temp;
+                    {
+
+                        for (int i = indexAt; i < (Counter - 1); i++)
+
+                        {
+
+                            DataArray[i] = DataArray[i + 1];
+
+                        }
+
+                        Counter--;
+
+                        Array.Copy (DataArray, 0, DataArray, 0, Counter);
 
                     }
 
@@ -192,100 +148,153 @@ namespace CustomCollectionsArrayList
 
             }
 
+            #endregion
 
-
-        }
-
-
-
-        //Show methord to display the whole ArrayList
-
-        public void show()
-
-        {
-
-            for (int i = 0; i < count; i++)
+            #region "Capacity"
+            //Returns Capacity
+            public int capacity ()
 
             {
 
-                Console.WriteLine(elmentData[i]);
-
-            }
-
-            Console.WriteLine("\n");
-
-        }
-
-
-
-        //Deleting the given Object
-
-        public void delete(Object a)
-
-        {
-
-            if (count == 0)
-
-            {
-
-                throw new Exception("The ArrayList is Empty");
-
-            }
-
-            else
-
-            {
-
-                int indexAt = find(a) - 1;
-
-
-
-                if (indexAt == -1)
+                if (DataArray == null)
 
                 {
 
-                    throw new Exception("The Element is not present in the ArrayList");
+                    return 0;
 
-                }
+                } else
 
-                else
+                    return StepSize;
+
+            }
+            #endregion
+
+            #region "Number of Elements"
+            //Returning the number of elements
+            public int length ()
+
+            {
+
+                return Counter;
+
+            }
+            #endregion
+            
+            #region "Finding if object present(Contains)"
+            //Finding that the given object uis contained in the ArrayList
+            public bool contains (Object Obj)
+
+            {
+
+                for (int i = 0; i < Counter; i++)
 
                 {
 
-                    for (int i = indexAt; i < (count - 1); i++)
+                    if (Obj.Equals (DataArray[i]))
 
                     {
 
-                        elmentData[i] = elmentData[i + 1];
+                        return true;
 
                     }
 
-                    count--;
+                }
 
+                return false;
 
+            }
+            #endregion
 
-                    Array.Copy(elmentData, 0, elmentData, 0, count);
+            #region "Find element position"
+            //Returning position of element if present
+            public int find (Object a)
+
+            {
+
+                for (int i = 0; i < Counter; i++)
+
+                {
+
+                    if (a.Equals (DataArray[i]))
+
+                    {
+
+                        return (i + 1);
+
+                    }
+
+                }
+
+                return -1;
+
+            }
+
+            #endregion
+
+            #region "Sorting"
+            //sorting the given list
+
+            public void sort ()
+
+            {
+
+                for (int i = 0; i < Counter; i++)
+
+                {
+
+                    for (int j = 1; j < (Counter - i); j++)
+
+                    {
+
+                        if (int.Parse (DataArray[j - 1].ToString ()) > int.Parse (DataArray[j].ToString ()))
+
+                        {
+
+                            Object temp = DataArray[j - 1];
+
+                            DataArray[j - 1] = DataArray[j];
+
+                            DataArray[j] = temp;
+
+                        }
+
+                    }
 
                 }
 
             }
+            #endregion
+
+            #region "Display"
+            //Displaying the whole ArrayList
+            public void show ()
+
+            {
+
+                for (int i = 0; i < Counter; i++)
+
+                {
+
+                    Console.WriteLine (DataArray[i]);
+
+                }
+
+                Console.WriteLine ("\n");
+
+            }
+            #endregion
+
+            #region "Get object at given Index"
+            //Getting the object at the given Index
+            public Object objectAtIndex (int Index)
+
+            {
+
+                return DataArray[a];
+
+            }
+            #endregion
 
         }
-
-
-
-        //Returning the size or number of elements in the ArrayList
-
-        public int size()
-
-        {
-
-            return count;
-
-        }
-
-
-
-    }
 
 }
